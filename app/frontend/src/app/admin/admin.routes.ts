@@ -23,6 +23,10 @@ const routes: Routes = [
                 loadComponent: () => import('./pages/funds-page/funds-page.component')
             },
             {
+                path: 'create-account',
+                loadComponent: () => import('./pages/create-account-page/create-account-page.component')
+            },
+            {
                 path: 'change-account',
                 loadComponent: () => import('./pages/change-account-page/change-account-page.component')
             },
