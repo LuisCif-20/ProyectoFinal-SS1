@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIN Reminder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .header {
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .content {
+      padding: 20px;
+      text-align: center;
+    }
+    .pin {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007bff;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>BANKCUNOC</h1>
+    </div>
+    <div class="content">
+      <p>Hola, <strong>{{user_name}}</strong></p>
+      <p>Tu Pin es el siguiente:</p>
+      <p class="pin">{{pin}}</p>
+      <p>Porfavor guarda este PIN seguro.</p>
+    </div>
+    <div class="footer">
+      <p>Si tu no solicitaste esto, porfavor ignora este mensaje.</p>
+    </div>
+  </div>
+</body>
+</html>

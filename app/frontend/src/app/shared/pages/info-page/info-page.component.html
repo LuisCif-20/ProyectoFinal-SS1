@@ -1,0 +1,36 @@
+<div class="h-full w-full md:p-5 p-3 overflow-y-auto">
+    <h1 class="text-center mb-5">Ofrecemos Las Siguientes Cuentas</h1>
+    <div class="grid">
+        @for (aType of accountTypes; track $index) {
+            <div class="md:col-4 col-12 p-2">
+                <div class="w-full shadow-4 border-round-2xl flex flex-column surface-50 p-5">
+                    <h1 class="text-center underline">{{ aType.name }}</h1>
+                    <p>{{ aType.description }}</p>
+                    <span>
+                        <span class="font-bold">
+                            Monto de Apertura:
+                        </span>
+                        <br>
+                        {{ aType.opening_amount | currency:aType.currency.name }}
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+    <h1 class="text-center my-5">Valores De Cambio</h1>
+    <div class="grid">
+        @for (eRate of exchangeRates; track $index) {
+            <div class="md:col-6 col-12 p-2">
+                <div class="w-full shadow-4 border-round-2xl flex flex-column surface-50 p-3">
+                    <h1 class="text-center underline">{{ eRate.currency.name }}</h1>
+                    <span class="text-center">
+                        <span class="font-bold">
+                            {{ 1 | currency:eRate.currency.name }} =
+                        </span>
+                        {{ eRate.rate | currency:'GTQ' }}
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>

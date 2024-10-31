@@ -1,0 +1,19 @@
+<p-button class="hidden md:block"
+    rounded="true"
+    raised="true"
+    showDelay="500"
+    [icon]="isAuth ? 'pi pi-sign-out' : 'pi pi-sign-in'"
+    [severity]="isAuth ? 'danger' : 'help'"
+    [label]="isAuth ? 'Cerrar Sesión' : 'Iniciar Sesión'"
+    (onClick)="throwAction()"
+/>
+
+<p-button class="block md:hidden"
+    rounded="true"
+    raised="true"
+    showDelay="500"
+    [icon]="isAuth ? 'pi pi-sign-out' : 'pi pi-sign-in'"
+    [severity]="isAuth ? 'danger' : 'help'"
+    [pTooltip]="isAuth ? 'Cerrar Sesión' : 'Iniciar Sesión'"
+    (onClick)="throwAction()"
+/>

@@ -1,0 +1,34 @@
+<p-sidebar [(visible)]="sidebarVisible" styleClass="w-19rem">
+    <ng-template pTemplate="headless">
+        <div class="flex flex-column h-full">
+            <p-menubar>
+                <ng-template pTemplate="start">
+                    <span class="text-3xl font-bold">Menú</span>
+                </ng-template>
+                <ng-template pTemplate="end">
+                    <p-button icon="pi pi-chevron-left" 
+                        severity="secondary" 
+                        rounded="true"
+                        pTooltip="Cerrar"
+                        showDelay="500"
+                        tooltipPosition="bottom"
+                        (onClick)="sidebarVisible = false" 
+                    />
+                </ng-template>
+            </p-menubar>
+            <shared-menu [menuItems]="(menuItems$ | async)!" />
+        </div>
+    </ng-template>
+</p-sidebar>
+
+@if(isAuthenticated) {
+    <p-button class="mr-3" 
+        icon="pi pi-ellipsis-v" 
+        severity="secondary" 
+        rounded="true"
+        pTooltip="Menú"
+        showDelay="500"
+        tooltipPosition="bottom"
+        (onClick)="sidebarVisible = true"
+    />
+}

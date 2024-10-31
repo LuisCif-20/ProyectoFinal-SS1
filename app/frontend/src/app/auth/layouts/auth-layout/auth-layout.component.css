@@ -1,0 +1,19 @@
+.background-container {
+    background: linear-gradient(217deg, rgba(153, 101, 244, 0.8), rgba(153, 101, 244, 0) 70.71%),
+                linear-gradient(127deg, rgba(140, 255, 9, 0.8), rgba(170, 242, 85, 0) 70.71%),
+                linear-gradient(336deg, rgba(255, 120, 90, 0.8), rgba(255, 120, 90, 0) 70.71%);
+    position: relative;
+}
+
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .container {
+        min-height: 100%; /* Mantén el min-height en 100vh para landscape */
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        min-height: 100%; /* Mantén el min-height en 100vh para landscape */
+    }
+}

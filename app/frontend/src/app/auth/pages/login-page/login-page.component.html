@@ -1,0 +1,27 @@
+<div class="border-round-2xl p-5 surface-50" style="width: 325px; height: 425px;">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="h-full w-full flex flex-column">
+        <span class="text-4xl font-bold text-center mt-3 mb-5">Inicia Sesión</span>
+        <div class="flex flex-column gap-2 mb-2">
+            <label for="email">Email</label>
+            <p-inputGroup>
+                <p-inputGroupAddon>
+                    <i class="pi pi-at"></i>
+                </p-inputGroupAddon>
+                <input id="email" pInputText placeholder="nick@example.com" formControlName="email"/>
+            </p-inputGroup>
+        </div>
+        <div class="flex flex-column gap-2 mb-4">
+            <label for="pin">Pin</label>
+            <p-inputGroup>
+                <p-inputGroupAddon>
+                    <i class="pi pi-key"></i>
+                </p-inputGroupAddon>
+                <input id="pin" pInputText placeholder="••••••••" type="password" formControlName="pin"/>
+            </p-inputGroup>
+        </div>
+        <p-button styleClass="w-full" rounded="true" label="Iniciar Sesión" type="sumbit"/>
+        <div class="flex justify-content-center my-auto">
+            <p-button label="Recordar Pin" link="true" (onClick)="rememberPin()" />
+        </div>
+    </form>
+</div>

@@ -1,0 +1,100 @@
+<div class="flex justify-content-center align-items-center h-full">
+    <div class="grid">
+        <div class="md:col-8 md:col-offset-2 col-10 col-offset-1 shadow-4 border-round-2xl p-5 surface-50">
+            <form (ngSubmit)="onCreate()" class="flex flex-column" [formGroup]="userForm">
+                <span class="text-center font-bold text-3xl mb-5">
+                    Datos de Usuario
+                </span>
+                <div class="grid">
+                    <div class="md:col-4 col-12 flex flex-column gap-2 mb-2">
+                        <label for="first_name">Nombre</label>
+                        <p-inputGroup>
+                            <p-inputGroupAddon>
+                                <i class="pi pi-user"></i>
+                            </p-inputGroupAddon>
+                            <input id="first_name" pInputText placeholder="Nick" formControlName="first_name" />
+                        </p-inputGroup>
+                    </div>
+                    <div class="md:col-4 col-12 flex flex-column gap-2 mb-2">
+                        <label for="last_name">Apellido</label>
+                        <p-inputGroup>
+                            <p-inputGroupAddon>
+                                <i class="pi pi-user"></i>
+                            </p-inputGroupAddon>
+                            <input id="last_name" pInputText placeholder="Cifuentes" formControlName="last_name"/>
+                        </p-inputGroup>
+                    </div>
+                    <div class="md:col-4 col-12 flex flex-column gap-2 mb-2">
+                        <label for="user_name">Nombre de Usuario</label>
+                        <p-inputGroup>
+                            <p-inputGroupAddon>
+                                <i class="pi pi-user"></i>
+                            </p-inputGroupAddon>
+                            <input id="user_name" pInputText placeholder="Nick Name" formControlName="user_name"/>
+                        </p-inputGroup>
+                    </div>
+                    <div class="md:col-5 col-12 flex flex-column gap-2 mb-2">
+                        <label for="email">Email</label>
+                        <p-inputGroup>
+                            <p-inputGroupAddon>
+                                <i class="pi pi-at"></i>
+                            </p-inputGroupAddon>
+                            <input id="email" pInputText placeholder="nick@example.com" formControlName="email"/>
+                        </p-inputGroup>
+                    </div>
+                    <div class="md:col-4 col-12 flex flex-column gap-2 mb-2">
+                        <label for="pin">Pin</label>
+                        <p-inputGroup>
+                            <p-inputGroupAddon>
+                                <i class="pi pi-key"></i>
+                            </p-inputGroupAddon>
+                            <input id="pin" pInputText type="password" placeholder="••••••••" formControlName="pin"/>
+                        </p-inputGroup>
+                    </div>
+                    <div class="md:col-3 col-12 flex flex-column gap-2 mb-2">
+                        <label for="birthdate">Fecha de Nacimiento</label>
+                        <p-calendar
+                            class="max-w-full"
+                            readonlyInput="true"
+                            inputId="birthdate"
+                            formControlName="birthdate"
+                        />
+                    </div>
+                    <div class="md:col-4 col-12 flex flex-column gap-2 mb-2">
+                        <label for="gender">Genero</label>
+                        <p-inputGroup>
+                            <p-inputGroupAddon>
+                                <i class="pi pi-id-card"></i>
+                            </p-inputGroupAddon>
+                            <p-dropdown styleClass="min-w-full ml-0" 
+                                [options]="genders"
+                                inputId="gender"
+                                optionLabel="label"
+                                optionValue="value"
+                                placeholder="Selecciona uno..."
+                                formControlName="gender"
+                            />
+                        </p-inputGroup>
+                    </div>
+                    <div class="md:col-4 col-12 flex flex-column gap-2 mb-2">
+                        <label>Tipo</label>
+                        <p-selectButton [options]="types"
+                            optionLabel="label"
+                            optionValue="value"
+                            formControlName="type"
+                        />
+                    </div>
+                    <div class="md:col col-12 flex flex-column gap-2 mb-2">
+                        <label>Terminar</label>
+                        <p-button
+                            severity="danger"
+                            icon="pi pi-plus"
+                            label="Crear"
+                            type="submit"
+                        />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<p-menubar styleClass="md:px-6" [model]="items">
+    <ng-template pTemplate="start">
+        <div class="flex flex-row align-items-center cursor-pointer mr-3 md:mr-5">
+            <img src="/icon.png" alt="BANKCUNOC" class="max-h-3rem mr-2" style="object-fit: contain;">
+            <span class="text-4xl font-bold hidden md:block">
+                <span class="text-yellow-400">BANK</span>
+                <span class="text-blue-400">CUNOC</span>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="item" let-item>
+        <a class="p-menuitem-link" [routerLink]="item.routerLink">
+            <span [class]="item.icon"></span>
+            <span class="ml-2">{{ item.label }}</span>
+        </a>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <div class="flex flex-row align-items-center">
+            <shared-theme-switcher class="mr-3" />
+            <shared-side-bar/>
+            <shared-auth-button/>
+        </div>
+    </ng-template>
+</p-menubar>

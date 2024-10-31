@@ -1,0 +1,47 @@
+<div class="grid">
+    @for (account of accounts; track $index) {
+        <div class="md:col-4 col-12 p-2">
+            <div class="w-full shadow-4 border-round-2xl flex flex-column surface-50 p-5">
+                <span class="text-center font-bold text-base text-xl">
+                    {{ account.account_address }}
+                </span>
+                <span class="text-left text-lg mt-5">
+                    <span class="font-bold">
+                        Numero de Cuenta:
+                    </span>
+                    {{ account.account_number }}
+                </span>
+                <span class="text-left text-base mt-3">
+                    <span class="font-bold">
+                        Estado de Cuenta:
+                    </span>
+                    {{ account.state | titlecase }}
+                </span>
+                <span class="text-left font-bold text-base mt-3">
+                    Actual:
+                    <i class="ml-2" [style]="{ 'color': account.current_account ? 'green' : 'red'}"
+                        [ngClass]="account.current_account ? 'pi pi-check-circle' : 'pi pi-times-circle'">
+                    </i>
+                </span>
+                <span class="text-left text-lg mt-6">
+                    <span class="font-bold">
+                        Tipo:
+                    </span>
+                    {{ account.account_type.name }}
+                </span>
+                <span class="text-left text-lg mt-3">
+                    <span class="font-bold">
+                        Fondos:
+                    </span>
+                    {{ account.funds | currency:account.account_type.currency.name }}
+                </span>
+                <span class="text-center text-base mt-5">
+                    <span class="font-bold">
+                        Fecha de Apertura:
+                    </span>
+                    {{ account.createdAt | date:'dd/MM/YYYY' }}
+                </span>
+            </div>
+        </div>
+    }
+</div>
