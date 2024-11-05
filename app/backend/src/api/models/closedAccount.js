@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'closedAccount',
+    modelName: 'ClosedAccount',
   });
 
   return ClosedAccount;

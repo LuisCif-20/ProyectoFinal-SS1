@@ -47,3 +47,14 @@ export interface Account extends Timestamps {
 export interface AccountRes extends Res {
     accounts: Account[]
 }
+
+export interface SingleAccount extends Res {
+    account: Account;
+}
+
+export interface AccountCreate {
+    funds:              number;
+    notifyme:           boolean;
+    account_type_id:       AccountType;
+    user_id:            string;
+}

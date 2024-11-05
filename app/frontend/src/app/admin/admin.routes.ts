@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { accountTypesResolver } from '../shared/resolvers/account-types.resolver';
+import { exchangeRatesResolver } from '../shared/resolvers/exchange-rates.resolver';
 
 const routes: Routes = [
     {
@@ -16,6 +18,9 @@ const routes: Routes = [
             },
             {
                 path: 'exchange-rate',
+                resolve: {
+                    exchangeRates: exchangeRatesResolver
+                },
                 loadComponent: () => import('./pages/exchange-rate-page/exchange-rate-page.component')
             },
             {
@@ -24,11 +29,21 @@ const routes: Routes = [
             },
             {
                 path: 'create-account',
+                resolve: {
+                    accountTypes: accountTypesResolver
+                },
                 loadComponent: () => import('./pages/create-account-page/create-account-page.component')
             },
             {
                 path: 'change-account',
+                resolve: {
+                    accountTypes: accountTypesResolver
+                },
                 loadComponent: () => import('./pages/change-account-page/change-account-page.component')
+            },
+            {
+                path: 'switch-account',
+                loadComponent: () => import('./pages/switch-account/switch-account.component')
             },
             {
                 path: 'close-account',

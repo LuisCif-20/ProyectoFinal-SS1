@@ -69,6 +69,14 @@ export class AuthService {
     );
   }
 
+  public getUserByEmail(email: string): Observable<User> {
+    const url: string = `${this.user_url}/email/${email}`;
+    return this.httpClient.get<UserRes>(url).pipe(
+      map(({ user }) => user),
+      catchError((error: HttpErrorResponse) => throwError(() => error))
+    );
+  }
+
   public refreshToken(): Observable<void> {
     const url: string = `${this.auth_url}/refresh-token`;
     return this.httpClient.post<LoginRes>(url, {}, {

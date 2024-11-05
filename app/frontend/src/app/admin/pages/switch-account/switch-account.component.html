@@ -1,37 +1,40 @@
 <div class="grid">
     <div class="col-12 md:col-6 md:col-offset-3 p-5">
         <div class="shadow-4 w-full border-round-2xl surface-50 p-5 flex flex-column">
-            <span class="font-bold text-center text-3xl">Numero de Cuenta</span>
+            <span class="font-bold text-center text-3xl">Email</span>
             <p-inputGroup class="mt-3">
                 <p-inputGroupAddon>
-                    <i class="pi pi-id-card"></i>
+                    <i class="pi pi-at"></i>
                 </p-inputGroupAddon>
-                <input pInputText maxlength="13" placeholder="XXXXXXXXXXXXX" [formControl]="accountNcontrol">
+                <input pInputText placeholder="nick@example.com" [formControl]="emailControl">
             </p-inputGroup>
-            @if (!account) {
+            @if (!user) {
                 <p-button class="mt-3 mx-auto"
                     severity="help"
                     label="Buscar"
-                    (onClick)="searchAccount()"
+                    (onClick)="searchUser()"
                 />
             } @else {
-                <span class="font-bold text-center text-xl mt-3">Razon de Cierre</span>
-                <textarea pInputTextarea class="mt-3" [formControl]="reasonControl">
-
-                </textarea>
+                <p-dropdown [options]="userAccounts" class="mt-3 mx-auto"
+                    optionValue="id"
+                    optionLabel="account_number"
+                    placeholder="Selecciona una cuenta..."
+                    [formControl]="accountControl"
+                />
                 <div class="mt-3 w-full flex justify-content-center align-items-center ">
                     <p-button class="mx-1 md:mx-3"
                         severity="danger"
                         label="Cancelar"
-                        (onClick)="cancel()"
+                        (onClick)="onCancel()"
                     />
                     <p-button class="mx-1 md:mx-3"
-                        severity="warning"
-                        label="Cerrar"
-                        (onClick)="closeAccount()"
+                        severity="success"
+                        label="Cambiar"
+                        (onClick)="switchAccount()"
                     />
                 </div>
             }
         </div>
     </div>
 </div>
+

@@ -86,7 +86,10 @@ export default class AddUserPageComponent {
       this.toastService.showError('Campos invalidos.');
     } else {
       this.authService.createUser(this.makeBody()).subscribe({
-        next: () => this.toastService.showSuccess('Usuario creado correctamente'),
+        next: () => {
+          this.toastService.showSuccess('Usuario creado correctamente');
+          this.userForm.reset();
+        },
         error: () => this.toastService.showError('Algo salio mal')
       });
     }

@@ -1,7 +1,29 @@
-const { Op } = require("sequelize");
+const { Op, where } = require("sequelize");
 const { Currency, AccountType, Account, User, ExchangeRate, ClosedAccount, sequelize } = require("../models");
 const { badRequest, notFound } = require("../utils/customErrors");
 // const { notFound, badRequest } = require("../utils/errorHandler");
+
+const findUser = async ({ email }) => {
+    const accounts = await Account.findAll({
+        include: {
+            model: User,
+            as: 'user',
+            where: {
+                email
+            }
+        }
+    });
+    if (accounts.length === 0) {
+        const user = await User.findOne({
+            where: {
+                email
+            }
+        });
+        if (!user) throw notFound('user');
+        return user;
+    };
+    throw badRequest('An account is exists');
+};
 
 const findAccountsByUser = async (user_id) => {
     const accounts = await Account.findAll({
@@ -129,6 +151,9 @@ const createAccount = async (data) => {
     const user = await User.findByPk(data.user_id);
     data.funds = (data.funds / exchangeRate.rate);
     data['account_address'] = `${user.user_name}.${accountType.name}@BANKCUNOC.com`;
+    const timestamp = Date.now().toString()
+    const randomPart = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+    data['account_number'] = (timestamp + randomPart).slice(0, 13);
     await Account.create(data);
 };
 
@@ -151,14 +176,31 @@ const changeAccount = async (data) => {
 };
 
 const switchPreviousAccount = async ({ user_id, account_id }) => {
-    const previousAccount = await Account.findByPk(account_id);
+    const previousAccount = await Account.findByPk(account_id, {
+        include: {
+            model: AccountType,
+            as: 'account_type'
+        }
+    });
     if (!previousAccount) throw notFound('account');
     const [currentAccount, funds] = await returnAccountFunds(user_id);
     if (account_id === currentAccount.id) throw badRequest('This is not possible.');
+    const accountType = await AccountType.findByPk(previousAccount.account_type.id, {
+        include: {
+            model: Currency,
+            as: 'currency'
+        }
+    });
+    const exchangeRate = await ExchangeRate.findOne({
+        where: {
+            currency_id: accountType.currency.id
+        }
+    });
+    const newFunds = Number(funds) / Number(exchangeRate.rate);
     const t = await sequelize.transaction();
     try {
         await previousAccount.update({
-            funds,
+            funds: newFunds,
             state: 'frozen',
             current_account: true
         });
@@ -178,7 +220,7 @@ const closeAccount = async (data) => {
     const t = await sequelize.transaction();
     try {
         const [affectedRows] = await Account.update({
-            state: 'close'
+            state: 'closed'
         }, {
              where: {
                 id: data.account_id
@@ -232,6 +274,15 @@ const findExchangeRates = async() => {
     return exchangeRates;
 };
 
+const updateExchangeRate = async({ id, rate }) => {
+    const [affectedRows] = await ExchangeRate.update({ rate }, {
+        where: {
+            id
+        }
+    });
+    if (affectedRows === 0) throw notFound('exchange rate');
+};
+
 module.exports = {
     findAccountDataByNumber,
     switchPreviousAccount,
@@ -244,6 +295,8 @@ module.exports = {
     updateAccount,
     closeAccount,
     dropAccount,
+    findUser,
     findAccountTypes,
-    findExchangeRates
+    findExchangeRates,
+    updateExchangeRate
 };

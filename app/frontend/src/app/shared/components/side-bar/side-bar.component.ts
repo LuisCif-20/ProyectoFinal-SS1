@@ -70,6 +70,11 @@ export class SideBarComponent implements OnInit, OnDestroy{
           routerLink: '/admin/add-user'
         },
         {
+          icon: 'pi pi-wallet',
+          label: 'Crear Cuenta',
+          routerLink: '/admin/create-account'
+        },
+        {
           icon: 'pi pi-money-bill',
           label: 'Tipos de Cambio',
           routerLink: '/admin/exchange-rate'
@@ -83,6 +88,11 @@ export class SideBarComponent implements OnInit, OnDestroy{
           icon: 'pi pi-arrow-right-arrow-left',
           label: 'Cambiar de Cuenta',
           routerLink: '/admin/change-account'
+        },
+        {
+          icon: 'pi pi-history',
+          label: 'Regresar a una Cuenta',
+          routerLink: '/admin/switch-account'
         },
         {
           icon: 'pi pi-user-minus',

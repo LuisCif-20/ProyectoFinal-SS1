@@ -1,1 +1,5 @@
-<p>exchange-rate-page works!</p>
+<div class="grid">
+    @for (exchangeRate of exchangeRates; track $index) {
+        <admin-exchange-rate-card class="col-12 md:col-4 p-3" [exchangeRate]="exchangeRate"/>   
+    }
+</div>

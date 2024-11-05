@@ -1,0 +1,20 @@
+<div class="shadow-4 w-full border-round-2xl surface-50 p-5 flex flex-column">
+    <span class="font-bold text-center text-3xl">{{ exchangeRate.currency.name }}</span>
+    <p-inputGroup class="mt-3">
+        <p-inputGroupAddon>
+            <i class="pi pi-money-bill"></i>
+        </p-inputGroupAddon>
+        <p-inputNumber
+            placeholder="Tasa de Cambio"
+            showButtons="true"
+            [minFractionDigits]="2"
+            [formControl]="rateControl"
+            min="0"
+        />
+    </p-inputGroup>
+    <p-button class="mt-3 mx-auto"
+        severity="help"
+        label="Actualizar Valor"
+        (onClick)="updateRate()"
+    />
+</div>

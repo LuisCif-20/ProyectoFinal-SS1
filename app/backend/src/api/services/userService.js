@@ -36,6 +36,16 @@ const findUsersByRole = async (name) => {
     return users;
 };
 
+const findUserByEmail = async (email) => {
+    const user = await User.findOne({
+        where: {
+            email
+        }
+    });
+    if (!user) throw notFound('user');
+    return user;
+};
+
 const createClient = async (user_data) => await createUser(user_data, 'CLIENT');
 
 const createAdmin = async (user_data) =>  await createUser(user_data, 'ADMIN');
@@ -58,6 +68,7 @@ const dropUser = async (id) => {
 
 module.exports = {
     findUsersByRole,
+    findUserByEmail,
     findUserById,
     createClient,
     createAdmin,

@@ -1,4 +1,4 @@
-const { findUserById, findUsersByRole, createClient, createAdmin, updateUser, dropUser } = require("../services/userService");
+const { findUserById, findUsersByRole, createClient, createAdmin, updateUser, dropUser, findUserByEmail } = require("../services/userService");
 const { resOk, resCreated } = require("../utils/resHandler");
 
 const getUserById = async ({ params }, res, next) => {
@@ -18,6 +18,15 @@ const getUsersByRole = async ({ params }, res, next) => {
         next(error);
     }
 };
+
+const getUserByEmail = async ({ params }, res, next) => {
+    try {
+        const user = await findUserByEmail(params.email);
+        resOk(res, { user });
+    } catch (error) {
+        next(error);
+    }
+}
 
 const postClient = async ({ body }, res, next) => {
     try {
@@ -57,6 +66,7 @@ const deleteUser = async ({ params }, res, next) => {
 
 module.exports = {
     getUsersByRole,
+    getUserByEmail,
     getUserById,
     postClient,
     deleteUser,

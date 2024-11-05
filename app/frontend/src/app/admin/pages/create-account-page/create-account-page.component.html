@@ -1,8 +1,8 @@
 <div class="flex justify-content-center align-items-center h-full">
-    <div class="grid">
+    <div class="grid w-full">
         <div class="col-6 p-5">
             <div class="shadow-4 border-round-2xl p-5 surface-50">
-                <form  class="flex flex-column">
+                <form class="flex flex-column" [formGroup]="emailForm">
                     <span class="text-center font-bold text-3xl mb-5">
                         Correo de Usuario
                     </span>
@@ -19,27 +19,52 @@
                             icon="pi pi-search"
                             severity="info"
                             label="Buscar"
+                            (onClick)="searchUser()"
                         />
                     </div>
                 </form>
             </div>
         </div>
-        <div class="col-6 p-5">
-            <div class="shadow-4 border-round-2xl p-5 surface-50">
-                <form  class="flex flex-column">
-                    <span class="text-center font-bold text-3xl mb-5">
-                        Datos de Cuenta
-                    </span>
-                    <div class="grid">
-                        <p-inputGroup>
+        @if (user) {
+            <div class="col-6 p-5 h-full">
+                <div class="shadow-4 border-round-2xl p-5 surface-50">
+                    <form  class="flex flex-column" [formGroup]="accountForm">
+                        <span class="text-center font-bold text-3xl mb-5">
+                            Datos de Cuenta
+                        </span>
+                        <p-dropdown class="mx-auto" [options]="accountTypes"
+                            placeholder="Tipo de Cuenta..."
+                            optionLabel="name"
+                            optionValue="id"
+                            formControlName="account_type_id"
+                        />
+                        <p-inputGroup class="mt-3">
                             <p-inputGroupAddon>
-                                <i class="pi pi-at"></i>
+                                <i class="pi pi-money-bill"></i>
                             </p-inputGroupAddon>
-                            <input id="email" pInputText placeholder="nick@example.com" formControlName="email"/>
+                            <p-inputNumber
+                                placeholder="Fondos"
+                                showButtons="true"
+                                formControlName="funds"
+                                min="0"
+                            />
                         </p-inputGroup>
-                    </div>
-                </form>
-            </div>
-        </div>
+                        <div class="flex flex-column justify-content-center align-items-center mt-3">
+                            <label for="switch" class="mx-3 mb-2">Notificar</label>
+                            <p-inputSwitch
+                                inputId="switch"
+                                formControlName="notifyme"
+                            />
+                        </div>
+                        <p-button class="mt-3 mx-auto"
+                            icon="pi pi-plus"
+                            severity="warning"
+                            label="Crear"
+                            (onClick)="onCreateAccount()"
+                        />
+                    </form>
+                </div>
+            </div>    
+        }
     </div>
 </div>  
