@@ -2,6 +2,10 @@ import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { accountTypesResolver } from '../shared/resolvers/account-types.resolver';
 import { exchangeRatesResolver } from '../shared/resolvers/exchange-rates.resolver';
+import { ReportsLayoutComponent } from './layouts/reports-layout/reports-layout.component';
+import { frozenResolver } from './resolvers/frozen.resolver';
+import { accountsResolver } from './resolvers/accounts.resolver';
+
 
 const routes: Routes = [
     {
@@ -10,7 +14,39 @@ const routes: Routes = [
         children: [
             {
                 path: 'reports',
-                loadComponent: () => import('./pages/reports-page/reports-page.component')
+                component: ReportsLayoutComponent,
+                children: [
+                    {
+                        path: 'frozen',
+                        resolve: {
+                            frozen: frozenResolver
+                        },
+                        loadComponent: () => import('./pages/frozen-accounts/frozen-accounts.component')
+                    },
+                    {
+                        path: 'closed',
+                        loadComponent: () => import('./pages/closed-accounts/closed-accounts.component')
+                    },
+                    {
+                        path: 'transactions',
+                        loadComponent: () => import('./pages/transactions/transactions.component')
+                    },
+                    {
+                        path: 'accounts',
+                        resolve: {
+                            accounts: accountsResolver
+                        },
+                        loadComponent: () => import('./pages/accounts/accounts.component')
+                    },
+                    {
+                        path: 'account',
+                        loadComponent: () => import('./pages/account/account.component')
+                    },
+                    {
+                        path: '**',
+                        redirectTo: 'frozen'
+                    }
+                ]
             }, 
             {
                 path: 'add-user',

@@ -1,4 +1,4 @@
-const { findAccountsByUser, findAccountData, findAccountDataByNumber, findCloseAccounts, findFrozenAccounts, createAccount, changeAccount, switchPreviousAccount, closeAccount, dropAccount, updateAccount, findAccountTypes, findExchangeRates, findUser, updateExchangeRate } = require("../services/accountService");
+const { findAccountsByUser, findAccountData, findAccountDataByNumber, findCloseAccounts, findFrozenAccounts, createAccount, changeAccount, switchPreviousAccount, closeAccount, dropAccount, updateAccount, findAccountTypes, findExchangeRates, findUser, updateExchangeRate, findAllAccounts } = require("../services/accountService");
 
 const { resCreated, resOk } = require("../utils/resHandler");
 
@@ -51,6 +51,15 @@ const getAccountDataByNumber = async ({ params }, res, next) => {
     try {
         const account = await findAccountDataByNumber(params.account_number);
         resOk(res, { account });      
+    } catch (error) {
+        next(error);
+    }
+};
+
+const getAllAccounts = async (req, res, next) => {
+    try {
+        const accounts = await findAllAccounts();
+        resOk(res, { accounts });
     } catch (error) {
         next(error);
     }
@@ -152,6 +161,7 @@ module.exports = {
     patchExchangeRate,
     postAccount,
     getUser,
+    getAllAccounts,
     getAccountTypes,
     getExchangeRates
 };

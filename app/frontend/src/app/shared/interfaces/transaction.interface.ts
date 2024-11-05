@@ -22,3 +22,7 @@ export interface TransactionRes extends Res {
     transactions:   Transaction[],
     totalByType:    TotalByType[]
 }
+
+export interface AllTran extends Res {
+    transactions:   Transaction[];
+}

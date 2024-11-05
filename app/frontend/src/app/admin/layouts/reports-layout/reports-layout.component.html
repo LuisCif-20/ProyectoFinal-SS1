@@ -1,0 +1,11 @@
+<div class="flex flex-column">
+    <p-menubar [model]="menuItems" class="mb-5" [routerLink]="">
+        <ng-template pTemplate="item" let-item>
+            <a [routerLink]="item.routerLink" class="p-menuitem-link">
+                <span [class]="item.icon"></span>
+                <span class="ml-2">{{ item.label }}</span>
+            </a>
+        </ng-template>
+    </p-menubar>
+    <router-outlet/>
+</div>

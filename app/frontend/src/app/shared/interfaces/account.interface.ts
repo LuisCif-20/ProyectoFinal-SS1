@@ -1,3 +1,4 @@
+import { User } from "../../auth/interfaces/auth.interface";
 import { Res, Timestamps } from "./res.interface";
 
 export enum State {
@@ -35,6 +36,7 @@ export interface ExchangeRateRes extends Res {
 
 export interface Account extends Timestamps {
     id:                 string;
+    user?:              User;
     funds:              number;
     state:              State;
     notifyme:           boolean;
@@ -57,4 +59,14 @@ export interface AccountCreate {
     notifyme:           boolean;
     account_type_id:       AccountType;
     user_id:            string;
+}
+
+export interface CloseAccount extends Timestamps {
+    id:         string;
+    reason:     string;
+    account:    Account;
+}
+
+export interface CloseAccountRes extends Res {
+    accounts:   CloseAccount[]
 }

@@ -61,6 +61,26 @@ const findAccountData = async (id) => {
     return account;
 };
 
+const findAllAccounts = async () => {
+    const accounts = await Account.findAll({
+        include: [
+            {
+                model: AccountType,
+                as: 'account_type',
+                include: {
+                    model: Currency,
+                    as: 'currency'
+                }
+            }, 
+            {
+                model: User,
+                as: 'user'
+            }
+        ]
+    });
+    return accounts;
+};
+
 const findAccountDataByNumber = async (account_number) => {
     const account = await Account.findOne({
         where: { account_number },
@@ -83,7 +103,7 @@ const findAccountDataByNumber = async (account_number) => {
     return account;
 };
 
-const findCloseAccounts = async (startDate, endDate) => {
+const findCloseAccounts = async ({startDate, endDate}) => {
     const accounts = await ClosedAccount.findAll({
         where: {
             createdAt: {
@@ -102,7 +122,21 @@ const findFrozenAccounts = async () => {
     const accounts = await Account.findAll({
         where: {
             state: 'frozen'
-        }
+        },
+        include: [
+            {
+                model: AccountType,
+                as: 'account_type',
+                include: {
+                    model: Currency,
+                    as: 'currency'
+                }
+            },
+            {
+                model: User,
+                as: 'user'
+            }
+        ]
     });
     return accounts;
 };
@@ -296,6 +330,7 @@ module.exports = {
     closeAccount,
     dropAccount,
     findUser,
+    findAllAccounts,
     findAccountTypes,
     findExchangeRates,
     updateExchangeRate

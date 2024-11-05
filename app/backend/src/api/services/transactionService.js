@@ -126,8 +126,32 @@ const findTransactionsByAccountAndDate = async ({ account_id, start_date, end_da
     return { transactions, totalByType }
 }
 
+const findTransactionsByDate = async ({ start_date, end_date }) => {
+    const transactions = await Transaction.findAll({
+        where: {
+            createdAt: {
+                [Op.between]: [start_date, end_date]
+            },
+        },
+        include: {
+            model: Account,
+            as: 'account',
+            include: {
+                model: AccountType,
+                as: 'account_type',
+                include: {
+                    model: Currency,
+                    as: 'currency'
+                }
+            }
+        }
+    });
+    return transactions
+}
+
 module.exports = {
     findTransactionsByAccountAndDate,
+    findTransactionsByDate,
     findTransactionsByAccount,
     makeCreditTrasanction,
     makeDebitTransaction

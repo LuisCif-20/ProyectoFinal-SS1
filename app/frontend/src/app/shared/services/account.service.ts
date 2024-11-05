@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ENV } from '../../../environments/environment';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
-import { Account, AccountCreate, AccountRes, AccountType, AccountTypesRes, ExchangeRate, ExchangeRateRes, SingleAccount } from '../interfaces/account.interface';
+import { Account, AccountCreate, AccountRes, AccountType, AccountTypesRes, CloseAccount, CloseAccountRes, ExchangeRate, ExchangeRateRes, SingleAccount } from '../interfaces/account.interface';
 import { User, UserRes } from '../../auth/interfaces/auth.interface';
 import { Res } from '../interfaces/res.interface';
 
@@ -96,6 +96,27 @@ export class AccountService {
       map(() => true),
       catchError((error: HttpErrorResponse) => throwError(() => error))
     ); 
+  }
+
+  public getFrozenAccounts(): Observable<Account[]> {
+    const url: string = `${this.accountUrl}/frozen`;
+    return this.httpClient.get<AccountRes>(url).pipe(
+      map(({ accounts }) => accounts)
+    );
+  }
+
+  public getAllAccounts(): Observable<Account[]> {
+    const url: string = `${this.accountUrl}/all`;
+    return this.httpClient.get<AccountRes>(url).pipe(
+      map(({ accounts }) => accounts)
+    );
+  }
+
+  public getCloseAccounts(startDate: Date, endDate: Date): Observable<CloseAccount[]> {
+    const url: string = `${this.accountUrl}/closed`;
+    return this.httpClient.post<CloseAccountRes>(url, { startDate, endDate }).pipe(
+      map(({ accounts }) => accounts)
+    );
   }
 
 }

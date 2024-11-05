@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getAccountData, getAccountDataByNumber, getAccountsByUser, postAccount, postChangeAccount, postSwitchPreviousAccount, getClosedAccounts, getFrozenAccounts, patchAccount, deleteAccount, doCloseAccount, getAccountTypes, getExchangeRates, getUser, patchExchangeRate } = require("../controllers/accountController");
+const { getAccountData, getAccountDataByNumber, getAccountsByUser, postAccount, postChangeAccount, postSwitchPreviousAccount, getClosedAccounts, getFrozenAccounts, patchAccount, deleteAccount, doCloseAccount, getAccountTypes, getExchangeRates, getUser, patchExchangeRate, getAllAccounts } = require("../controllers/accountController");
 const { checkToken, checkAuth, checkRole } = require("../middlewares/auth");
 
 
@@ -10,8 +10,9 @@ router.get('/user', checkToken, checkAuth, getAccountsByUser);
 router.get('/id/:id', checkToken, checkAuth, getAccountsByUser);
 router.post('/userA', checkToken, checkAuth, getUser);
 router.get('/data/:id', checkToken, checkAuth, getAccountData);
-router.get('/closed', checkToken, checkAuth, checkRole(['ADMIN']), getClosedAccounts);
+router.post('/closed', checkToken, checkAuth, checkRole(['ADMIN']), getClosedAccounts);
 router.get('/frozen', checkToken, checkAuth, checkRole(['ADMIN']), getFrozenAccounts);
+router.get('/all', checkToken, checkAuth, checkRole(['ADMIN']), getAllAccounts);
 router.get('/dataN/:account_number', checkToken, checkAuth, checkRole(['ADMIN']), getAccountDataByNumber);
 router.get('/', getAccountTypes);
 router.post('/close', checkToken, checkAuth, checkRole(['ADMIN']), doCloseAccount);

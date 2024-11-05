@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { ENV } from '../../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { TransactionRes } from '../interfaces/transaction.interface';
+import { AllTran, Transaction, TransactionRes } from '../interfaces/transaction.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,13 @@ export class TransactionService {
   public getTransactionsByAccountAndDate(body: { account_id: string; start_date: Date; end_date: Date }): Observable<TransactionRes> {
     const url: string = `${this.tranUrl}/tbud`;
     return this.httpClient.post<TransactionRes>(url, body);
+  }
+
+  public getTransactionsByDate(start_date: Date, end_date: Date ): Observable<Transaction[]> {
+    const url: string = `${this.tranUrl}/tbd`;
+    return this.httpClient.post<AllTran>(url, { start_date, end_date }).pipe(
+      map(({transactions}) => transactions)
+    );
   }
 
   public makeTransaction(account_id: string, amount: number, type: string): Observable<boolean> {

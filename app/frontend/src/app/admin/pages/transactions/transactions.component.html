@@ -1,0 +1,56 @@
+<div class="grid">
+    <div class="col-12 flex justify-content-center align-items-center ">
+        <div class="flex flex-column gap-2 mb-2">
+            <label for="rangeD">Rango de Fecha</label>
+            <p-calendar
+                [formControl]="dateControl"
+                selectionMode="range"
+                readonlyInput="true"
+                id="rangeD"
+            />
+        </div>
+        <p-button class="mx-3"
+            severity="info"
+            label="Buscar"
+            (onClick)="searchTrans()"
+        />
+    </div>
+    @if (transactions.length !== 0) {
+        <div class="col-12">
+            <div class="grid">
+                @for (tran of transactions; track $index) {
+                    <div class="col-12 md:col-6 p-2">
+                        <div class="flex flex-column w-full border-round-2xl shadow-5 p-5 surface-50">
+                            <span class="text-lg">
+                                <span class="font-bold">Numero de Cuenta:</span>
+                                {{ tran.account.account_number }}
+                            </span>
+                            <span class="text-lg mb-3">
+                                <span class="font-bold">Direccion de Cuenta:</span>
+                                {{ tran.account.account_address }}
+                            </span>
+                            <span class="text-lg">
+                                <span class="font-bold">Tipo:</span>
+                                {{ tran.type === 'debit' ? 'Egreso' : 'Ingreso' }}
+                            </span>
+                            <span class="text-lg mb-3">
+                                <span class="font-bold">Monto:</span>
+                                {{ tran.amount | currency:tran.account.account_type.currency.name }}
+                            </span>
+                            <span class="text-lg">
+                                <span class="font-bold">Hora:</span>
+                                {{ tran.createdAt | date: 'HH:mm a' }}
+                            </span>
+                            <span class="text-lg mb-3">
+                                <span class="font-bold">Fecha de Transaccion:</span>
+                                {{ tran.createdAt | date: 'dd/MM/YYYY' }}
+                            </span>
+                        </div>
+                    </div>
+                }
+    
+            </div>
+        </div>
+    }
+</div>
+
